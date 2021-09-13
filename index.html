@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Data analysis with R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/theme/black.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="styles.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="index_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Data analysis with R</h1>
+    <h2 class="author"><h2 class="place">
+Contextualization and presentation of R and Rstudio
+</h2></h2>
+    <h3 class="date"><br><img src="figure/Rzine.png" width="240"/><br>
+<h3 class="mail">
+<a href="mailto:hugues.pecout@cnrs.fr" class="email">hugues.pecout@cnrs.fr</a>
+</h3>
+<font style="font-size:50%;color:#757575;">Translated by </font>
+<h3 class="mail">
+<a href="mailto:violaine.jurie@univ-paris-diderot.fr" class="email">violaine.jurie@univ-paris-diderot.fr</a>
+</h3></h3>
+</section>
+
+<section><section id="statistical-analysis-softwares" class="title-slide slide level1"><h1>Statistical analysis softwares</h1></section><section id="sas-spad-spss-and-r" class="slide level2">
+<h2>SAS, SPAD, SPSS… and R</h2>
+<p><br></p>
+<p class="smallpcenter">
+<strong>In the early 2000s, a new software</strong> emerged and <strong>progressively established itself as an equal to the three major softwares</strong> that corner the market in statistical analysis
+</p>
+<p class="R">
+<img src="figure/R.png"  width="200"/>
+</p>
+<p class="moyp">
+<strong>We would anticipate users of these softwares may be interested in R</strong>
+</p>
+</section><section id="proprietary-softwares-are" class="slide level2">
+<h2>Proprietary softwares are</h2>
+<h3 id="not-free-of-charge">not free (of charge)</h3>
+<img src="figure/spss.png" width="500"/>
+</p>
+<p class="xsmallp" align="center">
+SPSS license <em>Base edition</em>
+</p>
+<aside class="notes">
+Chers : expensive souscritpion (attention coquille !) par mois/année : monthly/yearly subscription
+</aside>
+</section><section id="not-cross-platform" class="slide level2">
+<h2>Not cross-platform</h2>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Software/System</th>
+<th style="text-align: left;">Windows</th>
+<th style="text-align: left;">MacOS</th>
+<th style="text-align: left;">Linux</th>
+<th style="text-align: left;">BSD</th>
+<th style="text-align: left;">other Unix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SAS</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">terminated</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SPAD</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SPSS</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stata</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p class="xsmallp" align="center">
+<a href="https://en.wikipedia.org/wiki/Comparison_of_statistical_packages" class="uri">https://en.wikipedia.org/wiki/Comparison_of_statistical_packages</a>
+</p>
+</section><section id="specialized" class="slide level2">
+<h2>Specialized</h2>
+<aside class="notes">
+and rarely offer functions beyond statistical analysis
+</aside>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>SPSS</strong>: oriented towards social science</li>
+<li><strong>SPAD</strong>: oriented towards decision making</li>
+<li><strong>Stata</strong>: recommended for economists and epidemiologists</li>
+<li><strong>SAS</strong>: broad-based with some restrictions (i.e. graphic design)</li>
+</ul>
+</ul>
+<p><br></p>
+<p class="moyp">
+They provide <strong>zero or few network analysis</strong>, <strong>sequence data analysis</strong>, <strong>lexicometry</strong> (except for SPAD), and few features dedicated to valorisation.
+</p>
+</section><section id="restricted" class="slide level2">
+<h2>Restricted</h2>
+<p class="moyp3">
+<strong>Centralized management limits</strong> the following:
+</p>
+<ul class="pucsmall" style="padding:40px;">
+<ul>
+<li><strong>sustainability</strong></li>
+<li><strong>freedom of use</strong></li>
+<li><strong>compatibility</strong> with other softwares (data format)</li>
+<li>compatibility of version <strong>updates</strong><br />
+</li>
+<li><strong>development</strong> of new functions</li>
+<li>available <strong>languages</strong> (software and documentation)</li>
+<li>available <strong>sources of information</strong></li>
+</ul>
+</ul>
+</section><section id="difficulties-with" class="slide level2">
+<h2>Difficulties with…</h2>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>training</strong></li>
+<li><strong>usage</strong></li>
+<li><strong>teamwork</strong></li>
+<li><strong>interdisciplinary work</strong></li>
+<li><strong>reproducibility</strong></li>
+</ul>
+</ul>
+<p><br></p>
+<p class="normp">
+That is why we use R
+</p>
+<aside class="notes">
+<p>Permet de réalisé (ATTENTION faute : réaliser) un flux de travail complet en un script, un logiciel.</p>
+</aside>
+</section></section>
+<section><section id="section" class="title-slide slide level1" data-background="figure/RvsPython.png" data-background-size="1000px"><h1></h1></section><section id="close-enemies" class="slide level2">
+<h2>Close enemies</h2>
+<p><br></p>
+<p class="moyp">
+<strong>Two languages</strong> often used in data management and data analysis<br> <strong>and compared against each other because of their similar features</strong>…
+</p>
+<p align="center""><img src="figure/Tweet_1.PNG"  width="500"/></p>
+<p class="normp">
+Choosing <strong>R</strong> or <strong>Python</strong> depends on<br />
+<strong>who I am</strong> and <strong>what I want to do</strong>
+</p>
+</section><section id="two-divergent-communities" class="slide level2">
+<h2>Two divergent communities</h2>
+<div id="left" style="padding: 20px 0px 0px 20px;">
+<p align="center" style="padding-top:0px 0px 0px 0px;margin-top:0px;">
+<img src="figure/R.png"  width="130"/>
+</p>
+<p align="center" style="padding-top:0px 0px 0px 0px;margin-top:0px;">
+<img src="figure/Tweet_2.PNG"  width=350"/>
+</p>
+<ul class="xpucsmall" style="margin-top:30px;">
+<ul>
+<li><strong>accessible</strong> and <strong>inclusive</strong> community</li>
+<li>rich and <strong>structured documentation</strong></li>
+<li>discipline: <strong>data analysis</strong></li>
+<li>jobs: <strong>research and development</strong></li>
+</ul>
+</ul>
+</div>
+<div id="right">
+<p align="center" style="margin-top:0px;padding-top:0px;">
+<img src="figure/Python.png"  width="100"/>
+</p>
+<p align="center" style="padding-top:0px 0px 0px 0px;margin-top:0px;">
+<img src="figure/Tweet_3.PNG"  width="330"/>
+</p>
+<ul class="xpucsmall" style="margin-top:0px;">
+<ul>
+<li>community of <strong>specialists</strong></li>
+<li><strong>more users</strong></li>
+<li>discipline: <strong>data science</strong></li>
+<li>jobs: <strong>computer engineer</strong>, <strong>programmer</strong>…</li>
+</ul>
+</ul>
+</div>
+<p><br></p>
+</section><section id="specific-features" class="slide level2">
+<h2>Specific features</h2>
+<div id="left">
+
+<p class="moyp" align="center" style="padding-top:0px;margin-top:0px;">
+<strong>R</strong> is as brilliant…
+<p>
+<p align="center" style="padding-top:0px;margin-top:30px;">
+<img src="figure/batman.png"  width="180"/>
+</p>
+<ul class="xpucsmall" style="margin-top:20px;">
+<ul>
+<li><strong>easier to pick up</strong> (Rstudio)</li>
+<li><strong>statistical analysis</strong></li>
+<li><strong>graphic design</strong></li>
+<li><strong>valorisation</strong> (markdown, application…)</li>
+</ul>
+</ul>
+<p class="smallpcenter3">
+For <strong>users less advanced</strong> in programming<br> specialized in <strong>data analysis</strong>
+<p>
+</div>
+<div id="right">
+
+<p class="moyp" align="center" style="padding-top:0px;margin-top:0px;">
+…as <strong>Python</strong> is powerful!
+<p>
+<p style="align:center;margin-top:0px 0px 0px 0px;padding-top:0px 0px 0px 0px;">
+<img src="figure/superman.png"  width="150"/>
+</p>
+<ul class="xpucsmall" style="margin-top:20px;">
+<ul>
+<li>more <strong>powerful</strong> and non specialized</li>
+<li><strong>big data</strong> management</li>
+<li><strong>web scraping</strong> and <strong>NLP</strong></li>
+<li><strong>software development/programming</strong></li>
+</ul>
+</ul>
+<p class="smallpcenter3">
+For <strong>experts</strong> in programming<br> specialized in <strong>data science</strong>
+<p>
+</div>
+</section></section>
+<section><section id="section-1" class="title-slide slide level1" data-background="figure/R.png" data-background-size="450px"><h1></h1></section><section id="history-of-r" class="slide level2">
+<h2>History of R</h2>
+<p><br></p>
+<aside class="notes">
+Au départ, les chercheurs cherchaient des idées pour construire le meilleur environnement statistique
+</aside>
+<p class="smallpcenter">
+<strong>R is based on programming language S</strong>, created in 1988
+</p>
+<ul class="xpucsmall">
+<ul>
+<li><strong>1992</strong>: <strong>R. Gentleman</strong> and <strong>R. Ihaka begin working on the development</strong> (research project)</li>
+<li>1993: publication of the <strong>first binary version</strong> of R on Statlib</li>
+<li><strong>1995</strong>: <strong>R is an open source software</strong> under the terms of the <strong>GPL2 license</strong></li>
+<li>1997: Creation of the <em>R core group</em>. Creation of the CRAN (K. Jornik and F. Leisch)</li>
+<li>1999: Creation of the R website (<em>r-project.org</em>) . First in person meeting of the <em>R core team</em></li>
+<li><strong>2000</strong>: <strong>R 1.0.0</strong> is released. John Chambers (designer of the S language), joins the <em>R Core team</em></li>
+<li>2001: Creation of <em>R News</em> (known today as the <em>R Journal</em>)</li>
+<li><strong>2003</strong>: <strong>Creation of the</strong> <strong><em>R Foundation</em></strong></li>
+<li>2004: First <em>UseR!</em> conference (Vienna)</li>
+<li><strong>2004</strong>: <strong>R 2.0.0</strong> is released</li>
+<li>2009: First edition of the <em>R Journal</em></li>
+<li><strong>2013</strong>: <strong>R 3.0.0</strong> is released</li>
+<li><strong>2015</strong>: <strong>Creation of the</strong> <strong><em>R Consortium</em></strong> (involving the <em>R Foundation</em>)</li>
+<li><strong>2020</strong>: <strong>R 4.0.0</strong> is released</li>
+</ul>
+</ul>
+<br>
+<p class="xsmallp" align="center">
+<em><a href="https://blog.revolutionanalytics.com/2017/10/updated-history-of-r.html" class="uri">https://blog.revolutionanalytics.com/2017/10/updated-history-of-r.html</a></em>
+</p>
+</section><section id="significant-support" class="slide level2">
+<h2>significant support</h2>
+<p><br></p>
+<p class="normp">
+The result of <strong>30 years of research and development</strong>
+</p>
+<p><br></p>
+<p>Major financiers <strong>support</strong> the development of <strong>R</strong>: <strong><em>Microsoft</em></strong>, <strong><em>Google</em></strong>, <strong><em>Oracle</em></strong>, <strong><em>Esri</em></strong>…</p>
+<p><br></p>
+<p class="moyp">
+<a href="https://www.r-consortium.org/members" class="uri">https://www.r-consortium.org/members</a>
+</p>
+</section><section id="free-and-cross-platform" class="slide level2">
+<h2>Free and cross-platform</h2>
+<aside class="notes">
+<p>Is part of the free software movement (initiated by Richard Stallman in 1985), a political and social movement aiming to distribute softwares with no commercial secrets (secrecy ? confidentiality?) and open source codes</p>
+it runs on a wide variety of UNIX platforms, Windows and MacOS
+</aside>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>R is a free and open source software and programming language</strong></li>
+</ul>
+<p><br></p>
+<ul>
+<li>one of the <strong>GNU GPLv3 packages</strong></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>cross-platform</strong></li>
+</ul>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Software/System</th>
+<th style="text-align: left;">Windows</th>
+<th style="text-align: left;">MacOS</th>
+<th style="text-align: left;">Linux</th>
+<th style="text-align: left;">BSD</th>
+<th style="text-align: left;">Other Unix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">R</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">yes</td>
+</tr>
+</tbody>
+</table>
+</section><section id="unlimited-development" class="slide level2">
+<h2>Unlimited development</h2>
+<p><br></p>
+<aside class="notes">
+<p>Fonctions primites contenues en 7 librairies (base, estadísticas, gráficos…) qui sont chargées automatiquement.</p>
+</aside>
+<p class="smallpcenter">
+<strong>R offers 2292 standard</strong> statistical analysis and graphics <strong>functions</strong> (core-based)
+</p>
+<p class="smallpcenter">
+Many packages are available to enrich this core base, they are listed on the<br />
+<a href="https://cran.r-project.org/web/packages/available_packages_by_name.html"><strong><em>Comprehensive R Archive Network</em></strong></a> (<strong>CRAN</strong>). Ex :
+</p>
+<ul class="xpucsmall">
+<ul>
+<li><strong><em>quanteda</em></strong> - <strong>textual analysis</strong></li>
+<li><strong><em>igraph</em></strong> - <strong>network analysis</strong></li>
+<li><strong><em>sf</em></strong> - <strong>spatial vector data handling</strong></li>
+<li><strong><em>shiny</em></strong> - <strong>interactive web applications</strong></li>
+<li>…</li>
+</ul>
+</ul>
+<p><br></p>
+<p class="moyp">
+<strong>R has a modular structure that offers a multitude of applications</strong><br> <strong>Its development is only limited by contributions</strong>
+</p>
+</section><section id="unlimited-development-1" class="slide level2">
+<h2>Unlimited development</h2>
+<p><br></p>
+<p class="smallpcenter">
+Number of available packages on the <a href="https://cran.r-project.org/">CRAN</a>
+</p>
+<img src="figure/graph.png"  width="1100"/>
+</p>
+</section><section id="versatile" class="slide level2">
+<h2>Versatile</h2>
+<p><br> <br></p>
+<aside class="notes">
+<p>Croissance utilisateur = croissance de la polyvalence de l’outil</p>
+<p>Toutes les fonctionnalités pour toutes les étapes de la chaîne de traitement</p>
+</aside>
+<p class="moyp">
+<strong>Available packages allow a huge range of operations</strong>. From data collection to the final results’ valorisation (chart, gaphic design, document, website…)
+</p>
+<p><br></p>
+<p class="nrmp">
+<strong>its versatility</strong> makes R a <strong>complement</strong> and even a <strong>competition</strong> to many <strong>existing softwares</strong>
+</p>
+</section><section id="versatile-1" class="slide level2">
+<h2>Versatile</h2>
+<p><br></p>
+<p align="center">
+<img src="figure/Chaine_traitement_R_white_EN.png"  width="1000"/>
+</p>
+</section><section id="a-worldwide-based-community-of-users" class="slide level2">
+<h2>A worldwide based community of users</h2>
+<p align="center">
+<img src="figure/meetup_group.PNG"  width="950"/>
+</p>
+<p class="xsmallp">
+<a href="https://benubah.github.io/r-community-explorer/rugs.html" class="uri">https://benubah.github.io/r-community-explorer/rugs.html</a>
+</p>
+</section><section id="and-companies" class="slide level2">
+<h2>…and companies</h2>
+<p align="center">
+<img src="figure/empreza.PNG"  width="1000"/>
+</p>
+<p class="xsmallp">
+<a href="https://data-flair.training/blogs/r-careers/" class="uri">https://data-flair.training/blogs/r-careers/</a>
+</p>
+</section><section id="reliable" class="slide level2">
+<h2>Reliable</h2>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>financial support from investors</strong> (<em>R Consortium</em>)</li>
+<li><strong>an involved community</strong></li>
+<li>an open source software that is <strong>open and therefore verifiable</strong></li>
+<li>some glitches encountered, however…</li>
+</ul>
+</ul>
+<aside class="notes">
+<p>Réputation des développeurs !</p>
+</aside>
+<br><br />
+
+<p class="moyp">
+<strong>The information quickly runs through open software communities</strong>
+</p>
+</section><section id="reproducible-work" class="slide level2">
+<h2>reproducible work</h2>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>a unique software</strong> to work on <strong>every processing step</strong></li>
+<li>contents are <strong>easily filed and shared</strong> (code scripts)</li>
+<li>it only takes <strong>a computer to replicate the work</strong></li>
+</ul>
+</ul>
+<p><br></p>
+<p class="moyp">
+<strong>Reproducibility</strong> means <strong>sharing</strong> and <strong>transparency</strong>!
+</p>
+</section><section id="inconveniences" class="slide level2">
+<h2>Inconveniences</h2>
+<p><br></p>
+<ul>
+<ul>
+<li><strong>R is a programming language first</strong></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>Documentation &amp; resources are mainly in English</strong></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>A very basic interface</strong></li>
+</ul>
+</ul>
+</section></section>
+<section><section id="section-2" class="title-slide slide level1" data-background="figure/Rstudio_logo.png" data-background-size="700px"><h1></h1></section><section id="what-is-rstudio" class="slide level2">
+<h2>What is RStudio?</h2>
+<p><br></p>
+<p class="smallpcenter">
+RStudio is a company developing and releasing softwares and services based on R.<br> <strong>It is the major private actor in R community</strong>
+</p>
+<p class="smallpcenter">
+<strong>RStudio (its employees) developed several reference packages</strong>. <em>Ex :</em>
+</p>
+<ul class="xpucsmall">
+<ul>
+<li><strong>rmarkdown</strong> (<em>document production</em>)</li>
+<li><strong>shiny</strong> &amp; <strong>flexdashboard</strong> (<em>web application</em> &amp; <em>dashboard</em>)</li>
+<li><strong>ggplot2</strong> (<em>graphic design</em>)</li>
+<li><strong>dplyr</strong> &amp; <strong>tidyr</strong> (<em>chart handling</em>)</li>
+<li><strong>stringr</strong> (<em>character string handling</em>)</li>
+<li>…</li>
+</ul>
+</ul>
+<p><br></p>
+<p class="smallpcenter">
+<strong>Rstudio</strong> also released <strong>an integrated development environment</strong> (<strong>IDE</strong>), <br><strong>making R easier to work with</strong>
+</p>
+</section><section id="basic-r-interface" class="slide level2">
+<h2>Basic R interface</h2>
+<div id="left">
+<p align="center">
+<img src="figure/R_wind.PNG"  width="450"/>
+</p>
+<p class="legend" align="center">
+<em>R interface on Windows</em>
+</p>
+</div>
+<div id="right">
+<p align="center">
+<img src="figure/R_linux.PNG"  width="450"/>
+</p>
+<p class="legend" align="center">
+<em>no interface on Linux (terminal)</em>
+</p>
+<p><br></p>
+<p class="smallpcenter">
+<strong>The RStudio IDE makes it easier to learn and use R </strong>
+</p>
+</div>
+</section><section id="ide-rstudio" class="slide level2">
+<h2>IDE Rstudio</h2>
+<p align="center">
+<img src="figure/Rstudio_EN.png"   width="1000" />
+</p>
+</section><section id="ide-rstudio-1" class="slide level2">
+<h2>IDE Rstudio</h2>
+<p align="center">
+<img src="figure/Rstudio.PNG"  width="1000" />
+</p>
+</section><section id="other-strengths" class="slide level2">
+<h2>Other strengths</h2>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>project file organization</strong></li>
+<li><strong>clicking functions</strong></li>
+<li><strong>predictive text</strong></li>
+<li><strong>keyboard shortcuts</strong></li>
+</ul>
+</ul>
+<p><br></p>
+<p class="nrmp">
+it is <strong>simple</strong>, <strong>complete</strong> and constantly <strong>evolving</strong>…
+</p>
+<p><strong>Use the RStudio environment!</strong></p>
+</section></section>
+<section><section id="installation" class="title-slide slide level1"><h1>Installation</h1></section><section id="install-r" class="slide level2">
+<h2>Install R</h2>
+<p><br></p>
+<p class="moyp">
+<strong>Installing</strong> R and the Rstudio IDE <strong>is as smooth as any other software</strong>. Download R through the <a href="https://cran.r-project.org/">CRAN</a>
+</p>
+<p><br></p>
+<p align="center">
+<img src="figure/Download.PNG"  width="1000"/>
+</p>
+<p class="moyp">
+<a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>
+</p>
+</section><section id="install-the-rstudio-ide" class="slide level2">
+<h2>Install the Rstudio IDE</h2>
+<p class="moyp2">
+Download the <strong>Desktop version</strong> from <a href="https://rstudio.com/">Rstudio website</a>
+</p>
+<p align="center">
+<img src="figure/Download_Rstudio.png" width="750" />
+</p>
+<p class="moyp">
+<a href="https://rstudio.com/products/rstudio/download/" class="uri">https://rstudio.com/products/rstudio/download/</a>
+</p>
+</section><section id="and-were-off" class="slide level2">
+<h2>And we’re off!</h2>
+<p align="center">
+<img src="figure/programer.png"  width="500"/>
+</p>
+<p><strong>Launch RStudio</strong> (not R) to begin</p>
+</section></section>
+<section><section id="section-3" class="title-slide slide level1" data-background="figure/R.png" data-background-size="450px"><h1></h1></section><section id="free-and-open-presentation-cc-by-3.0-license" class="slide level2">
+<h2>Free and open presentation <br> CC BY 3.0 license</h2>
+<p><br></p>
+<p class="moyp">
+consultation:
+</p>
+<ul class="xpucsmall">
+<ul>
+<li>English version: <a href="https://hpecout.gitpages.huma-num.fr/R_presentation_EN/" class="uri">https://hpecout.gitpages.huma-num.fr/R_presentation_EN/</a></li>
+<li>French version: <a href="https://hpecout.gitpages.huma-num.fr/R_presentation_FR/" class="uri">https://hpecout.gitpages.huma-num.fr/R_presentation_FR/</a></li>
+<li>Spanish version: <a href="https://hpecout.gitpages.huma-num.fr/R_presentation_SP/" class="uri">https://hpecout.gitpages.huma-num.fr/R_presentation_SP/</a></li>
+</ul>
+</ul>
+<p><br></p>
+<p class="moyp">
+source code:
+</p>
+<ul class="xpucsmall">
+<ul>
+<li>Git (english): <a href="https://gitlab.huma-num.fr/hpecout/R_presentation_EN" class="uri">https://gitlab.huma-num.fr/hpecout/R_presentation_EN</a></li>
+<li>Git (french): <a href="https://gitlab.huma-num.fr/hpecout/R_presentation_FR" class="uri">https://gitlab.huma-num.fr/hpecout/R_presentation_FR</a></li>
+<li>Git (spanish): <a href="https://gitlab.huma-num.fr/hpecout/R_presentation_SP" class="uri">https://gitlab.huma-num.fr/hpecout/R_presentation_SP</a></li>
+</ul>
+</ul>
+<p><br></p>
+</section><section id="documentation" class="slide level2">
+<h2>Documentation</h2>
+<p><br></p>
+<p class="smallpcenter">
+Numerous referenced documentary resources (EN, FR and SP) on…
+</p>
+<img src="figure/Rzine.png" width="240"/><br>
+<p class="moyp">
+<a href="http://rzine.fr" target="_blank">rzine.fr</a>
+</p>
+</section><section id="thanks" class="slide level2">
+<h2>Thanks</h2>
+<p><br></p>
+<p class="moyp">
+<a href="mailto:n.bohin@qmul.ac.uk">Natacha Bohin (Barts Cancer Institute)</a>
+</p>
+<p class="moyp">
+<a href="https://github.com/rCarto">Timothée Giraud (CNRS)</a>
+</p>
+<p class="moyp">
+<a href="mailto:violaine.jurie@univ-paris-diderot.fr">Violaine Jurie (Université de Paris)</a>
+</p>
+<p><br></p>
+<div id="left3">
+<p align="center">
+<img src="figure/rmarkdown.png"  width="85"/><img src="figure/knitr.png"  width="85"/>
+</p>
+</div>
+<div id="center2">
+<p class="smallpcenter">
+REVEAL.JS
+</p>
+</div>
+<div id="center3">
+<p class="moyp">
+<img src="figure/gitlab.png"  width="180"/>
+</p>
+</div>
+<div id="right3">
+<p align="center">
+<img src="figure/humanum.png"  width="180"/>
+</p>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="index_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="index_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: true,
+        // Hides the address bar on mobile devices
+        hideAddressBar: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+        menu: {
+          custom: false,
+          themes: false,
+          transitions: false
+        },
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'index_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+          { src: 'index_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+          { src: 'index_files/reveal.js-3.3.0.1/plugin/menu/menu.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
