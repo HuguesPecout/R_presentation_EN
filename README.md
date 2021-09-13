@@ -6,5 +6,5 @@
 
 Other versions :
 - [French version](https://huguespecout.github.io/R_presentation_FR/#/)
-- [Spanish version](https://huguespecout.github.io/R_presentation_SP/#/), Traducido por Francois Rebaudo
+- [Spanish version](https://huguespecout.github.io/R_presentation_SP/#/), translated by Francois Rebaudo
 
